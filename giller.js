@@ -14,7 +14,7 @@ app.get('/dashboard/assets/:resFN', function (req, res) {
 
 //Dashboard
 app.get('/dashboard', function (req, res) {
-  res.sendFile(__dirname + '/res/index1.html');
+  res.sendFile(__dirname + '/res/index.html');
 });
 
 //API
