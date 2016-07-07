@@ -1,6 +1,9 @@
 var port = 9006;
+var flatfile = require('flat-file-db');
+var db = flatfile(__dirname + '/db/assoc.db');
 var express = require('express');
 var app = express();
+app.use(express.bodyParser());
 const spawn = require('child_process').spawn;
 
 //Landing
@@ -23,9 +26,14 @@ app.get('/dashboard', function (req, res) {
 app.all('/api/v1',function(req,res){
   res.send('API')
 });
-
-app.all('/api/v1/update',function(req,res){
-  const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: __dirname});
+app.all('/api/v1/:repoID/create',function(req,res){
+  db.put(req.params['repoID'], req.param('location', '/tmp/'));
+});
+app.all('/api/v1/:repoID/pull',function(req,res){
+  //db search
+  var tmpdir = db.get(res.params['repoID']);
+  //git pull
+  const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: tmpdir});
   ls.stdout.on('data', (data) => {
     res.write(`stdout: ${data}`);
   });
