@@ -1,0 +1,28 @@
+{
+  "name": "giller",
+  "version": "0.0.1",
+  "description": "Github Webhook Handler",
+  "main": "giller.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node giller.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Athuli7/giller.git"
+  },
+  "keywords": [
+    "github",
+    "webhook",
+    "pull"
+  ],
+  "author": "Athul Raj",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Athuli7/giller/issues"
+  },
+  "homepage": "https://github.com/Athuli7/giller#readme"
+}
