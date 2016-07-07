@@ -1,6 +1,6 @@
 {
   "name": "giller",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Github Webhook Handler",
   "main": "giller.js",
   "dependencies": {
