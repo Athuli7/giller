@@ -6,7 +6,7 @@ const spawn = require('child_process').spawn;
 //Landing
 app.get('/', function (req, res) {
   res.rewrite('/dashboard');
-  #res.send('<html><a href="dashboard/">Dashboard</a></html>');
+  //res.send('<html><a href="dashboard/">Dashboard</a></html>');
 });
 
 //Resource
