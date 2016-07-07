@@ -25,7 +25,7 @@ app.all('/api/v1',function(req,res){
 });
 
 app.all('/api/v1/update',function(req,res){
-  const ls = spawn('ls', ['-lh', '/usr'], [cwd: __dirname]);
+  const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: __dirname});
   ls.stdout.on('data', (data) => {
     res.write(`stdout: ${data}`);
   });
