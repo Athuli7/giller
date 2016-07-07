@@ -8,8 +8,8 @@ app.get('/', function (req, res) {
 });
 
 //Resource
-app.get('/dashboard/assets/:resFN', function (req, res) {
-  res.sendFile(__dirname + '/res/assets/' + req.params['resFN']);
+app.get('/dashboard/:resFN', function (req, res) {
+  res.sendFile(__dirname + '/res/' + req.params['resFN']);
 });
 
 //Dashboard
