@@ -9,12 +9,12 @@ app.get('/', function (req, res) {
 
 //Resource
 app.get('/dashboard/assets/:resFN', function (req, res) {
-  res.sendFile(__dirname + 'res/assets/' + req.params['resFN']);
+  res.sendFile(__dirname + '/res/assets/' + req.params['resFN']);
 });
 
 //Dashboard
 app.get('/dashboard', function (req, res) {
-  res.sendFile(__dirname + 'res/index1.html');
+  res.sendFile(__dirname + '/res/index1.html');
 });
 
 //API
