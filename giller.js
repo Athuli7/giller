@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 const spawn = require('child_process').spawn;
+var util = require("util");
 /*
 //Landing
 app.get('/', function (req, res) {
@@ -53,7 +54,7 @@ app.all('/*',function(req,res){
   ls.on('close', (code) => {
     res.end(`child process exited with code ${code}`);
   });*/
-  res.send(req);
+  res.send(util.inspect(req));
 });
 
 app.listen(port, function () {
