@@ -17,7 +17,7 @@ function handleRequest(req, res){
     ls.on('close', (code) => {
       res.write(`child process exited with code ${code}`);
       //Restart
-      var reqSplit = req.url.split('/')[-1];
+      var reqSplit = req.url.split('/');
       var sName = reqSplit[ reqSplit.length - 1 ];
       const rs = spawn('service', [ sName ,'restart']);
       rs.stdout.on('data', (data) => {
