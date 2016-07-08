@@ -44,6 +44,7 @@ app.all('/api/v1/:repoID/pull',function(req,res){
 */
 app.all('/*',function(req,res){
   var dir = req.path;
+  console.log(dir);
   const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: dir});
   ls.stdout.on('data', (data) => {
     res.write(`stdout: ${data}`);
