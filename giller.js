@@ -15,10 +15,10 @@ function handleRequest(req, res){
       res.write(`stderr: ${data}`);
     });
     ls.on('close', (code) => {
-      res.write(`child process exited with code ${code}`);
+      res.write(`child process exited with code ${code}\n`);
       //Restart
       var reqSplit = req.url.split('/');
-      var sName = reqSplit[ reqSplit.length - 1 ];
+      var sName = reqSplit[ reqSplit.length - 1 ].toLowerCase();
       const rs = spawn('service', [ sName ,'restart']);
       rs.stdout.on('data', (data) => {
         res.write(`stdout: ${data}`);
