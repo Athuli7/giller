@@ -3,30 +3,34 @@ var http = require('http');
 const spawn = require('child_process').spawn;
 
 function handleRequest(req, res){
-  var dir = req.url;
-  console.log(dir);
-  //Git Pull
-  const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: dir});
-  ls.stdout.on('data', (data) => {
-    res.write(`stdout: ${data}`);
-  });
-  ls.stderr.on('data', (data) => {
-    res.write(`stderr: ${data}`);
-  });
-  ls.on('close', (code) => {
-    res.write(`child process exited with code ${code}`);
-  });
-  //Restart
-  const rs = spawn('service', [ req.url.split('/')[-1] ,'restart']);
-  rs.stdout.on('data', (data) => {
-    res.write(`stdout: ${data}`);
-  });
-  rs.stderr.on('data', (data) => {
-    res.write(`stderr: ${data}`);
-  });
-  rs.on('close', (code) => {
-    res.end(`child process exited with code ${code}`);
-  });
+  try{
+    var dir = req.url;
+    console.log(dir);
+    //Git Pull
+    const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: dir});
+    ls.stdout.on('data', (data) => {
+      res.write(`stdout: ${data}`);
+    });
+    ls.stderr.on('data', (data) => {
+      res.write(`stderr: ${data}`);
+    });
+    ls.on('close', (code) => {
+      res.write(`child process exited with code ${code}`);
+    });
+    //Restart
+    const rs = spawn('service', [ req.url.split('/')[-1].toLowerCase() ,'restart']);
+    rs.stdout.on('data', (data) => {
+      res.write(`stdout: ${data}`);
+    });
+    rs.stderr.on('data', (data) => {
+      res.write(`stderr: ${data}`);
+    });
+    rs.on('close', (code) => {
+      res.end(`child process exited with code ${code}`);
+    });
+  }catch(err){
+    console.log(err);
+  }
 }
 
 //Create a server
