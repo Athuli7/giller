@@ -16,17 +16,17 @@ function handleRequest(req, res){
     });
     ls.on('close', (code) => {
       res.write(`child process exited with code ${code}`);
-    });
-    //Restart
-    const rs = spawn('service', [ req.url.split('/')[-1].toLowerCase() ,'restart']);
-    rs.stdout.on('data', (data) => {
-      res.write(`stdout: ${data}`);
-    });
-    rs.stderr.on('data', (data) => {
-      res.write(`stderr: ${data}`);
-    });
-    rs.on('close', (code) => {
-      res.end(`child process exited with code ${code}`);
+      //Restart
+      const rs = spawn('service', [ req.url.split('/')[-1].toLowerCase() ,'restart']);
+      rs.stdout.on('data', (data) => {
+        res.write(`stdout: ${data}`);
+      });
+      rs.stderr.on('data', (data) => {
+        res.write(`stderr: ${data}`);
+      });
+      rs.on('close', (code) => {
+        res.end(`child process exited with code ${code}`);
+      });
     });
   }catch(err){
     console.log(err);
