@@ -1,13 +1,9 @@
 {
   "name": "giller",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Github Webhook Handler",
   "main": "giller.js",
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "flat-file-db": "^1.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "node giller.js"
