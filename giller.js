@@ -5,6 +5,7 @@ const spawn = require('child_process').spawn;
 function handleRequest(req, res){
   var dir = req.url;
   console.log(dir);
+  //Git Pull
   const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: dir});
   ls.stdout.on('data', (data) => {
     res.write(`stdout: ${data}`);
@@ -13,9 +14,10 @@ function handleRequest(req, res){
     res.write(`stderr: ${data}`);
   });
   ls.on('close', (code) => {
-    res.end(`child process exited with code ${code}`);
+    res.write(`child process exited with code ${code}`);
   });
-  const rs = spawn('service', [ req.path.split('/')[-1] ,'restart']);
+  //Restart
+  const rs = spawn('service', [ req.url.split('/')[-1] ,'restart']);
   rs.stdout.on('data', (data) => {
     res.write(`stdout: ${data}`);
   });
