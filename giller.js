@@ -14,7 +14,17 @@ function handleRequest(req, res){
   });
   ls.on('close', (code) => {
     res.end(`child process exited with code ${code}`);
-  });  
+  });
+  const rs = spawn('service', [ req.path.split('/')[-1] ,'restart']);
+  rs.stdout.on('data', (data) => {
+    res.write(`stdout: ${data}`);
+  });
+  rs.stderr.on('data', (data) => {
+    res.write(`stderr: ${data}`);
+  });
+  rs.on('close', (code) => {
+    res.end(`child process exited with code ${code}`);
+  });
 }
 
 //Create a server
