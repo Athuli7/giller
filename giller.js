@@ -3,8 +3,11 @@ var flatfile = require('flat-file-db');
 var db = flatfile(__dirname + '/db/assoc.db');
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));
 const spawn = require('child_process').spawn;
-
+/*
 //Landing
 app.get('/', function (req, res) {
   res.rewrite('/dashboard');
@@ -32,11 +35,15 @@ app.all('/api/v1/repo/list',function(req,res){
 app.all('/api/v1/:repoID/create',function(req,res){
   db.put(req.params['repoID'], req.body.location);
 });
+
 app.all('/api/v1/:repoID/pull',function(req,res){
   //db search
   var tmpdir = db.get(res.params['repoID']);
   //git pull
-  const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: tmpdir});
+*/
+app.all('/*',function(req,res){
+  /*
+  const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: });
   ls.stdout.on('data', (data) => {
     res.write(`stdout: ${data}`);
   });
@@ -45,7 +52,8 @@ app.all('/api/v1/:repoID/pull',function(req,res){
   });
   ls.on('close', (code) => {
     res.end(`child process exited with code ${code}`);
-  });
+  });*/
+  res.send(req);
 });
 
 app.listen(port, function () {
