@@ -1,13 +1,13 @@
 var port = 9006;
-var flatfile = require('flat-file-db');
-var db = flatfile(__dirname + '/db/assoc.db');
+//var flatfile = require('flat-file-db');
+//var db = flatfile(__dirname + '/db/assoc.db');
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true }));
+//var bodyParser = require('body-parser');
+//app.use(bodyParser.json()); // support json encoded bodies
+//app.use(bodyParser.urlencoded({ extended: true }));
 const spawn = require('child_process').spawn;
-var util = require("util");
+//var util = require("util");
 /*
 //Landing
 app.get('/', function (req, res) {
@@ -43,8 +43,8 @@ app.all('/api/v1/:repoID/pull',function(req,res){
   //git pull
 */
 app.all('/*',function(req,res){
-  /*
-  const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: });
+  var dir = req.path;
+  const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: dir});
   ls.stdout.on('data', (data) => {
     res.write(`stdout: ${data}`);
   });
@@ -53,8 +53,7 @@ app.all('/*',function(req,res){
   });
   ls.on('close', (code) => {
     res.end(`child process exited with code ${code}`);
-  });*/
-  res.send(util.inspect(req));
+  });
 });
 
 app.listen(port, function () {
