@@ -3,7 +3,6 @@ var flatfile = require('flat-file-db');
 var db = flatfile(__dirname + '/db/assoc.db');
 var express = require('express');
 var app = express();
-app.use(express.bodyParser());
 const spawn = require('child_process').spawn;
 
 //Landing
@@ -26,8 +25,12 @@ app.get('/dashboard', function (req, res) {
 app.all('/api/v1',function(req,res){
   res.send('API')
 });
+
+app.all('/api/v1/repo/list',function(req,res){
+  res.send(db.keys());
+});
 app.all('/api/v1/:repoID/create',function(req,res){
-  db.put(req.params['repoID'], req.param('location', '/tmp/'));
+  db.put(req.params['repoID'], req.body.location);
 });
 app.all('/api/v1/:repoID/pull',function(req,res){
   //db search
