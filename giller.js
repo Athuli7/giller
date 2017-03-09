@@ -26,7 +26,7 @@ function handleRequest(req, res){
     var sName = reqSplit[ reqSplit.length - 1 ];
     eSIF(dir, 'git', ['pull', 'origin', 'master'], function(output){
       res.write(output);
-      eSIF(dir, 'service', [ sName.toLowerCase(), 'restart'], function(output){
+      eSIF(dir, 'service', [ sName.toString().toLowerCase(), 'restart'], function(output){
         res.write(output);
       });
     });
