@@ -7,7 +7,7 @@ function handleRequest(req, res){
     var dir = req.url;
     console.log(dir);
     //Git Pull
-    const ls = spawn('bash', ['restart.sh'], {cwd: dir});
+    const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: dir});
     ls.stdout.on('data', (data) => {
       res.write(`stdout: ${data}`);
     });
@@ -19,7 +19,7 @@ function handleRequest(req, res){
       //Restart
       var reqSplit = req.url.split('/');
       var sName = reqSplit[ reqSplit.length - 1 ];
-      const rs = spawn('service', [ sName ,'restart']);
+      const rs = spawn('service', [ sNametoLowerCase() ,'restart']);
       rs.stdout.on('data', (data) => {
         res.write(`stdout: ${data}`);
       });
