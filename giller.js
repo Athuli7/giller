@@ -30,7 +30,7 @@ function handleRequest(req, res){
         res.end(output);
       });
     });*/
-    eSIF(dir, 'bash' ['restart.sh'],function(output){
+    eSIF(dir, 'bash' ,['restart.sh'],function(output){
       res.write(output);
     });
   }catch(err){
