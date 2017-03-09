@@ -2,7 +2,7 @@ var port = 9006;
 var http = require('http');
 const spawn = require('child_process').spawn;
 
-function eSIF(dir, executable, vars){
+function eSIF(dir, executable, vars, callback){
   //Git Pull
     var output = "";
     const ls = spawn(executable, vars, {cwd: dir});
@@ -15,7 +15,7 @@ function eSIF(dir, executable, vars){
     ls.on('close', (code) => {
       output = output + '\nchild process exited with code ' + code ;
     });
-    return output;
+    callback(output)
 }
 
 function handleRequest(req, res){
@@ -23,8 +23,12 @@ function handleRequest(req, res){
     var dir = req.url;
     var reqSplit = req.url.split('/');
     var sName = reqSplit[ reqSplit.length - 1 ];
-    res.write(eSIF(dir, 'git', ['pull', 'origin', 'master']));
-    res.end(eSIF(dir, 'service', [ sName.toLowerCase(), 'restart']));
+    eSIF(dir, 'git', ['pull', 'origin', 'master'], function(output){
+      res.write(output);
+      eSIF(dir, 'service', [ sName.toLowerCase(), 'restart'], function(output){
+        res.end(output);
+      });
+    });
     //res.end('Done')
   }catch(err){
     console.log(err);
