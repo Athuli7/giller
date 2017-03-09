@@ -4,7 +4,7 @@ const spawn = require('child_process').spawn;
 
 function eSIF(res, dir, executable, vars){
   //Git Pull
-    const ls = spawn('git', , {cwd: dir});
+    const ls = spawn(executable, vars, {cwd: dir});
     ls.stdout.on('data', (data) => {
       res.write(`stdout: ${data}`);
     });
