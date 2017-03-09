@@ -5,6 +5,7 @@ const spawn = require('child_process').spawn;
 function eSIF(dir, executable, vars, callback){
   //Git Pull
     var output = "";
+    console.log([executable, vars, {cwd : dir}]);
     const ls = spawn(executable, vars, {cwd: dir});
     ls.stdout.on('data', (data) => {
       output = output + '\nstdout: ' + data;
@@ -14,8 +15,8 @@ function eSIF(dir, executable, vars, callback){
     });
     ls.on('close', (code) => {
       output = output + '\nchild process exited with code ' + code ;
+      callback(output);
     });
-    callback(output)
 }
 
 function handleRequest(req, res){
