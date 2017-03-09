@@ -7,13 +7,13 @@ function eSIF(dir, executable, vars){
     var output = "";
     const ls = spawn(executable, vars, {cwd: dir});
     ls.stdout.on('data', (data) => {
-      output = output + `stdout: ${data}\n`;
+      output = output + '\nstdout: ' + data;
     });
     ls.stderr.on('data', (data) => {
-      output = output + `stderr: ${data}\n`;
+      output = output + '\nstderr: ' + data;
     });
     ls.on('close', (code) => {
-      output = output + `child process exited with code ${code}\n`;
+      output = output + '\nchild process exited with code ' + code ;
     });
     return output;
 }
