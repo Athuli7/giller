@@ -19,7 +19,7 @@ function handleRequest(req, res){
       //Restart
       var reqSplit = req.url.split('/');
       var sName = reqSplit[ reqSplit.length - 1 ];
-      const rs = spawn('service', [ sNametoLowerCase() ,'restart']);
+      const rs = spawn('service', [ sName.toLowerCase() ,'restart']);
       rs.stdout.on('data', (data) => {
         res.write(`stdout: ${data}`);
       });
