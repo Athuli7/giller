@@ -27,10 +27,9 @@ function handleRequest(req, res){
     eSIF(dir, 'git', ['pull', 'origin', 'master'], function(output){
       res.write(output);
       eSIF(dir, 'service', [ sName.toString().toLowerCase(), 'restart'], function(output){
-        res.write(output);
+        res.end(output);
       });
     });
-    res.end('Done')
   }catch(err){
     console.log(err);
   }
