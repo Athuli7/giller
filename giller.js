@@ -7,7 +7,7 @@ function handleRequest(req, res){
     var dir = req.url;
     console.log(dir);
     //Git Pull
-    const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: dir});
+    const ls = spawn('bash', ['restart.sh'], {cwd: dir});
     ls.stdout.on('data', (data) => {
       res.write(`stdout: ${data}`);
     });
