@@ -24,11 +24,14 @@ function handleRequest(req, res){
     var dir = req.url;
     var reqSplit = req.url.split('/');
     var sName = reqSplit[ reqSplit.length - 1 ];
-    eSIF(dir, 'git', ['pull', 'origin', 'master'], function(output){
+    /*eSIF(dir, 'git', ['pull', 'origin', 'master'], function(output){
       res.write(output);
       eSIF(dir, 'service', [ sName.toString().toLowerCase(), 'restart'], function(output){
         res.end(output);
       });
+    });*/
+    eSIF(dir, 'bash' ['restart.sh'],function(output){
+      res.write(output);
     });
   }catch(err){
     console.log(err);
