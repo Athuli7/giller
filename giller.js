@@ -2,12 +2,9 @@ var port = 9006;
 var http = require('http');
 const spawn = require('child_process').spawn;
 
-function handleRequest(req, res){
-  try{
-    var dir = req.url;
-    console.log(dir);
-    //Git Pull
-    const ls = spawn('git', ['pull', 'origin', 'master'], {cwd: dir});
+function eSIF(res, dir, executable, vars){
+  //Git Pull
+    const ls = spawn('git', , {cwd: dir});
     ls.stdout.on('data', (data) => {
       res.write(`stdout: ${data}`);
     });
@@ -16,20 +13,18 @@ function handleRequest(req, res){
     });
     ls.on('close', (code) => {
       res.write(`child process exited with code ${code}\n`);
-      //Restart
-      var reqSplit = req.url.split('/');
-      var sName = reqSplit[ reqSplit.length - 1 ];
-      const rs = spawn('service', [ sName.toLowerCase() ,'restart']);
-      rs.stdout.on('data', (data) => {
-        res.write(`stdout: ${data}`);
-      });
-      rs.stderr.on('data', (data) => {
-        res.write(`stderr: ${data}`);
-      });
-      rs.on('close', (code) => {
-        res.end(`child process exited with code ${code}`);
-      });
     });
+}
+
+function handleRequest(req, res){
+  try{
+    var dir = req.url;
+    var reqSplit = req.url.split('/');
+    var sName = reqSplit[ reqSplit.length - 1 ];
+    res.write(dir+'\n');
+    eSIF(res, dir, 'git', ['pull', 'origin', 'master']);
+    eSIF(res, dir, 'service', [ sName.toLowerCase(), 'restart']);
+    res.end('Done')
   }catch(err){
     console.log(err);
   }
